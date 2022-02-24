@@ -1,17 +1,12 @@
 const router = require('express').Router();
-const { notes } = require('../../data/db.json');
+const { notes } = require('../../data/db');
 const { findById, createNewNote } = require('../../lib/notes');
 
 //GET AND POST /api/notes
 
 router.get('/notes', (req, res) => {
-    // Notes.findAll({})
-    // .then(dbNotesData => res.json(dbNotesData))
-    // .catch(err => {
-    //     console.log(err);
-    //     res.status(500).json(err);
-    // });
     let results = notes;
+    console.log(results)
     res.json(results);
 });
 
@@ -28,7 +23,7 @@ router.post('/notes', (req, res) => {
     if (!notes) {
         req.body.id = 1
     } else {
-    req.body.id = Notes.length.toString();
+    req.body.id = notes.length;
     }
     const note = createNewNote(req.body, notes);
     res.json(note)
